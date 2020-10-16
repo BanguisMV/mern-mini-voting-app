@@ -1,70 +1,34 @@
 import React, { useState } from 'react'
+import { Route, Switch, Redirect } from 'react-router-dom';
+import PrivateRoute from '../utils/PrivateRoute';
 
-import { PieChartOutlined , 
-    UserOutlined, 
-    TeamOutlined,
-    SolutionOutlined,
-    PoweroffOutlined   } from '@ant-design/icons';
-
-import { Menu,Layout, Button ,Card, Col, Row } from 'antd';
-
-const {Content, Sider } = Layout;
+import Statistics from './DashboardStatistics';
+import SideBar from './DashboardSideBar';
+import PartyLists from './DashboardPartyLists';
+import Voters from './DashboardVoters';
+import Candidates from './DashboardCandidates';
+import { Layout } from 'antd';
 
 
+const { Content  } = Layout;
 const AdminDashboard = () => {
-
-
     return (
    <Layout>
-    <Sider 
-    className="menu"
-        breakpoint="md" 
-        collapsedWidth="0" 
-    >
-            <div className="logo" />
-            <Menu theme="dark" mode="inline" defaultSelectedKeys={['1']} >
-                <Menu.Item key="1" icon={<PieChartOutlined />}>Dashboard</Menu.Item>
-                <Menu.Item key="2" icon={<SolutionOutlined/>}>Party Lists</Menu.Item>
-                <Menu.Item key="3" icon={<TeamOutlined />}>Candidates</Menu.Item>
-                <Menu.Item key="4" icon={<UserOutlined />}>Voters</Menu.Item>
-            </Menu> 
-            <Button type="primary" danger icon={ <PoweroffOutlined  />} className="logout-button" />
-        </Sider>
-
+        <SideBar />
         <Layout className="site-body">     
-         
           <Content className="site-layout">
-              <div className="site-layout-body" >
-                <div>
-                  <Row gutter={[16, 16]}>
-                    <Col  xs={24} sm={12} lg={8} >
-                      <Card className='admin-card' title="Total Partylist" bordered={false}>
-                        Total Partylist
-                      </Card>
-                    </Col>
-                    <Col  xs={24} sm={12}  lg={8} >
-                      <Card className='admin-card' title="Total Candidates" bordered={false}>
-                        Total Candidates
-                      </Card>
-                    </Col>
-                    <Col  xs={24} sm={24}  lg={8} >
-                      <Card className='admin-card' title="Total Voters" bordered={false}>
-                        Total Voters
-                      </Card>
-                    </Col>
-                </Row>
+                <div className="site-layout-body" >
+                {/* Switch Between  */}
+                  <Switch>
+                    <PrivateRoute exact path="/statistics" component={Statistics} /> 
+                    <PrivateRoute exact path="/partylists" component={PartyLists} />
+                    <PrivateRoute exact path="/candidates" component={Candidates} />
+                    <PrivateRoute exact path="/voters" component={Voters} />
+                  </Switch>
                 </div>
-            
-            <div className='statistics'>
-asd
-            </div>
-              </div>
             </Content>
         </Layout>
-   </Layout>
-                  
-        
-
+   </Layout>           
     )
 }
 

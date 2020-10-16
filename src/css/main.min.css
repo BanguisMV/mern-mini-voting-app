@@ -1,5 +1,5 @@
 .login-page {
-  background: linear-gradient(130deg, rgba(70,195,205,1) 50%, rgba(213,238,255,1) 48%);
+  background: linear-gradient(144deg, #46c3cd 48%, #d5eeff 48%);
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -52,8 +52,9 @@
     left: 50%;
     text-align: center;
     width: 100%;
-    margin:0 !important;
-    transform: translate(-50%);
+    margin: 0 !important;
+    -webkit-transform: translate(-50%);
+            transform: translate(-50%);
   }
 }
 
@@ -81,7 +82,6 @@
 
 @media (max-width: 500px) {
   .login-form {
-   
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;

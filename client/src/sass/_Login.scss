@@ -5,7 +5,7 @@
     justify-content: center;
     align-items: center;
     position: relative;
-    .logo {
+    .logo-login {
         text-align: center;
 
         @media(max-width:500px) {
@@ -27,7 +27,12 @@
     .links {
         
         @media(max-width:500px) {
-            display: none;
+            top: 90%;
+            left: 50%;
+            text-align: center;
+            width: 100%;
+            margin:0 !important;
+            transform: translate(-50%);
         }
 
         position: absolute;
@@ -60,8 +65,8 @@
 
    height: 22rem;
    width: 18rem;
+   
    @media(max-width:500px) {
-       padding: 5rem;
        display: flex;
        flex-direction: column;
        justify-content: center;

@@ -18,6 +18,10 @@ app.use('/api/candidates', verifyToken, candidateRoute);
 app.use('/api/user', verifyToken,  userRoute);
 app.use('/api/login', authLogin);
 
+app.use('/api/trial', (req, res) => {
+    res.json({mes: "hello"})
+});
+
 const URL  = process.env.DB_DEV_HOST
 const PORT = process.env.PORT || 4000
 const database = mongoose.connection

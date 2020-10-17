@@ -1,6 +1,6 @@
-import React, { useState } from 'react'
-import { Route, Switch, Redirect } from 'react-router-dom';
-import PrivateRoute from '../utils/PrivateRoute';
+import React, {useEffect}  from 'react'
+import { Route, Switch } from 'react-router-dom';
+import Helmet from 'react-helmet'
 
 import Statistics from './DashboardStatistics';
 import SideBar from './DashboardSideBar';
@@ -12,18 +12,22 @@ import { Layout } from 'antd';
 
 const { Content  } = Layout;
 const AdminDashboard = () => {
+
+
     return (
    <Layout>
+     <Helmet>
+       <head>Dashboard</head>
+     </Helmet>
         <SideBar />
         <Layout className="site-body">     
           <Content className="site-layout">
                 <div className="site-layout-body" >
-                {/* Switch Between  */}
                   <Switch>
-                    <PrivateRoute exact path="/statistics" component={Statistics} /> 
-                    <PrivateRoute exact path="/partylists" component={PartyLists} />
-                    <PrivateRoute exact path="/candidates" component={Candidates} />
-                    <PrivateRoute exact path="/voters" component={Voters} />
+                    <Route exact path="/statistics" component={Statistics} /> 
+                    <Route exact path="/partylists" component={PartyLists} />
+                    <Route exact path="/candidates" component={Candidates} />
+                    <Route exact path="/voters" component={Voters} />
                   </Switch>
                 </div>
             </Content>

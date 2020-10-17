@@ -1,20 +1,17 @@
 import React from 'react';
-import AdminDashboard from './components/containers/AdminDashboard';
 import LoginPage from './components/containers/Login';
-import { Route, Switch } from 'react-router-dom';
-import PrivateRoute from './components/utils/PrivateRoute';
+
+// import { Route, Redirect } from 'react-router-dom';
+// import PrivateRoute from './components/utils/PrivateRoute';
+// import AdminDashboard from './components/containers/AdminDashboard';
+// import { useSelector } from 'react-redux'
+
 function App() {
 
+  // const isLoggedIn = useSelector(state => state.auth.isLoggedIn)
   return (
     <div className="App">
-      <Switch>
-      <PrivateRoute >
-        <AdminDashboard />
-      </PrivateRoute>
-      <Route exact path='/login' component={LoginPage} /> 
-
-      </Switch>
-
+    <LoginPage  />
     </div>
   );
 }

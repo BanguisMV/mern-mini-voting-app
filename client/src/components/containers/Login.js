@@ -1,5 +1,8 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
+import Helmet from 'react-helmet'
 import { Form, Input, Button, notification } from 'antd';
+import { useDispatch, useSelector } from 'react-redux'
+import { LoginMiddleware } from '../../redux/actions/actions'
 import { UserOutlined,
     EyeInvisibleOutlined, 
     EyeTwoTone,LockOutlined,
@@ -8,37 +11,35 @@ import { UserOutlined,
     WarningOutlined } from '@ant-design/icons';
 
 const openNotification = (message) => {
-        const args = {
-          message: message,
-          duration:2.2,
-          icon: <WarningOutlined style={{ color: 'red' }} />,
-        };
-        notification.open(args);
+    const args = {
+      message,
+      duration:2.2,
+      icon: <WarningOutlined style={{ color: 'red' }} />,
+    };
+    notification.open(args);
 };
-      
+
 const Login = () => {
-    const onFinish = async values => {
-        console.log(values);
-        // try {
-        //   const auth =  await fetch('/login', {
-        //         method: 'POST', 
-        //         headers: { 'Content-Type': 'application/json'},
-        //         body: JSON.stringify(values),
-        //         })
-        //   const authData = await auth.json()
 
-        //   if(auth.status === 404 || auth.status === 400) {
-        //      openNotification(authData.message)
-        //   }
-          
-        // console.log(authData);
-        // } catch (error) {
-        //     console.log(error);
-        // }
-}
-
+    const authData = useSelector(state => state.auth)
+    const loginDispatch = useDispatch()
+    const onFinish = values => {
+        loginDispatch(LoginMiddleware(values));
+    }
+    useEffect(() => {
+        if(authData.hasError) {
+            openNotification(authData.errorMessage)
+        }
+        
+    },[authData.hasError])
+ 
+    console.log(authData);
     return (
         <div className='login-page'>
+            <Helmet>
+                <title>Login</title>
+            </Helmet>
+
                <Form
                     name="basic"
                     initialValues={{ remember: true }}
@@ -65,9 +66,11 @@ const Login = () => {
                         iconRender={visible => (visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />)}
                     />
                </Form.Item>
-        <Button type="primary" htmlType="submit" size="large" block>
-          Login
-        </Button>
+
+                <Button type="primary" htmlType="submit" 
+                size="large" block loading={authData.loading}>
+                Login
+                </Button>
 
          </Form>
         

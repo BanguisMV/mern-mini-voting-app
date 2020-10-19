@@ -1,31 +1,24 @@
-import { LOGIN_SUCESSS, LOGIN_FAILED, LOGIN_FETCHING } from '../actions/types';
+import { LOGIN, LOGOUT } from '../actions/types';
 
 const INITIAL_STATE = {
    isLoggedIn: false,
-   loading: false,
-   hasError: false,
+   role:'',
+   id:'',
 };
 
-const reducer = (state = INITIAL_STATE, action) => {
+const authReducer = (state = INITIAL_STATE, action) => {
     switch (action.type) {
-        case LOGIN_SUCESSS:
+        case LOGIN:
            return {
              ...state, 
-             isLoggedIn: action.payload.isLoggedIn,
-             token: action.payload.token,
-             loading:action.payload.loading
+             isLoggedIn: true,
+             role:action.payload.role,
+             id:action.payload.id
            };
-           case LOGIN_FAILED:
-            return {
-              ...state, 
-              errorMessage:action.payload.errorMessage,
-              loading:action.payload.loading,
-              hasError:action.payload.hasError
-            };
-            case LOGIN_FETCHING:
+        case LOGOUT:
               return {
-                ...state, 
-                loading:action.payload.loading
+               ...state, 
+              isLoggedIn: false,
             };
         
          default: return state;
@@ -33,4 +26,4 @@ const reducer = (state = INITIAL_STATE, action) => {
 
 };
 
-export default reducer;
+export default authReducer;

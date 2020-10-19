@@ -1,8 +1,10 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
+import { useDispatch } from 'react-redux';
 import Helmet from 'react-helmet'
 import { Form, Input, Button, notification } from 'antd';
-import { useDispatch, useSelector } from 'react-redux'
-import { LoginMiddleware } from '../../redux/actions/actions'
+import LoginRequest from '../utils/LoginRequest';
+import { useHistory } from "react-router-dom";
+
 import { UserOutlined,
     EyeInvisibleOutlined, 
     EyeTwoTone,LockOutlined,
@@ -21,19 +23,12 @@ const openNotification = (message) => {
 
 const Login = () => {
 
-    const authData = useSelector(state => state.auth)
-    const loginDispatch = useDispatch()
-    const onFinish = values => {
-        loginDispatch(LoginMiddleware(values));
-    }
-    useEffect(() => {
-        if(authData.hasError) {
-            openNotification(authData.errorMessage)
-        }
-        
-    },[authData.hasError])
- 
-    console.log(authData);
+    const history = useHistory();
+    const handleClick = () => history.push("/");
+    const dispatch = useDispatch()
+    const [loading, setLoading] = useState(false)
+    const onFinish = values => LoginRequest(values, setLoading, openNotification,dispatch, handleClick)
+    
     return (
         <div className='login-page'>
             <Helmet>
@@ -68,7 +63,7 @@ const Login = () => {
                </Form.Item>
 
                 <Button type="primary" htmlType="submit" 
-                size="large" block loading={authData.loading}>
+                size="large" block loading={loading}>
                 Login
                 </Button>
 
@@ -78,7 +73,6 @@ const Login = () => {
             <a href="https://github.com/BanguisMV">  <GithubOutlined /> </a>
             <a href="https://www.instagram.com/slowstupidlearner/">    <InstagramOutlined /> </a>        
          </div>
-        
         </div>
     )
 }

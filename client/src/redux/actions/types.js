@@ -1,7 +1,11 @@
+export const LOGIN = 'LOGIN';
+export const LOGOUT = 'LOGOUT';
 
-export const LOGIN_SUCESSS = 'LOGIN_SUCESSS';
-export const LOGIN_FAILED = 'LOGIN_FAILED';
-export const LOGIN_FETCHING = 'LOGIN_FETCHING';
+
+export const USER_FETCHING = 'USER_FETCHING';
+export const USER_SUCCESS = 'USER_SUCCESS';
+export const USER_FAILED = 'USER_FAILED';
+
 
 
 

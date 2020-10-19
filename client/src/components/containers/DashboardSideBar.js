@@ -1,17 +1,33 @@
-import React from 'react'
+import React, {useState} from 'react'
+import { useDispatch }from 'react-redux';
+import { useHistory } from "react-router-dom";
+import { Menu,Layout, Button , Modal } from 'antd';
+import { NavLink } from 'react-router-dom';
 import { PieChartOutlined , 
     UserOutlined, 
     TeamOutlined,
     SolutionOutlined,
     PoweroffOutlined   } from '@ant-design/icons';
 
-import { Menu,Layout, Button } from 'antd';
-import { NavLink } from 'react-router-dom';
-
+    
 const { Sider } = Layout;
 
-
 const DashboardSideBar = () => {
+    const [visible, setVisible] = useState(false)
+    const showModal = () => setVisible(true)
+    const handleCancel = e => setVisible(false);
+
+    const dispatch = useDispatch()
+    const history = useHistory();
+
+      const handleOk = e => {
+        setVisible(false)
+        localStorage.removeItem('token')
+        dispatch ({type:'LOGOUT'})
+        history.push("/auth")
+      };
+    
+
     return (
         <Sider 
     className="menu"
@@ -38,7 +54,17 @@ const DashboardSideBar = () => {
                 </Menu.Item>
 
             </Menu> 
-            <Button type="primary" danger icon={ <PoweroffOutlined  />} className="logout-button" />
+            <Button type="primary" danger icon={ <PoweroffOutlined  />} className="logout-button" onClick={showModal}/>
+        
+            <Modal
+                visible={visible}
+                onOk={handleOk}
+                onCancel={handleCancel}
+                centered
+                width={250}
+                >
+                <h3>Are you sure?</h3>
+            </Modal>
         </Sider>
     )
 }

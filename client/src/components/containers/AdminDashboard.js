@@ -24,10 +24,10 @@ const AdminDashboard = () => {
           <Content className="site-layout">
                 <div className="site-layout-body" >
                   <Switch>
-                    <Route exact path="/statistics" component={Statistics} /> 
-                    <Route exact path="/partylists" component={PartyLists} />
-                    <Route exact path="/candidates" component={Candidates} />
-                    <Route exact path="/voters" component={Voters} />
+                      <Route exact path="/statistics" component={Statistics} /> 
+                      <Route exact path="/partylists" component={PartyLists} />
+                      <Route exact path="/candidates" component={Candidates} />
+                      <Route exact path="/voters" component={Voters} />
                   </Switch>
                 </div>
             </Content>

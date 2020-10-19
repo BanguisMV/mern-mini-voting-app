@@ -5,7 +5,7 @@ import Admin from './AdminDashboard'
 import User from './UserHomePage'
 
 const Home = () => {
-    let UI 
+    let UI = <Admin /> 
     const { role } = useSelector(state => state.auth)
 
     if(role === 'admin' || role === 'demo') {  

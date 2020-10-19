@@ -9,10 +9,10 @@ function App() {
   const { isLoggedIn } = useSelector(state => state.auth.isLoggedIn)
   return (
     <div className="App">
-      <Switch >
-        <PrivateRoute  exact path='/' component={HomePage} />
-        <Route exact path ='/auth' component={LoginPage} />
-        <Route exact path ='*' render={() => <h1>404</h1>} />
+      <Switch>
+          <Route exact path ='/auth' component={LoginPage} />
+          <Route path='/' component={HomePage} />
+          {/* <Route path ='*' render={() => <h1>Error</h1>} /> */}
       </Switch>
     </div>
   );

@@ -19,8 +19,9 @@ const authReducer = (state = INITIAL_STATE, action) => {
               return {
                ...state, 
               isLoggedIn: false,
+              role:'',
+              id:''
             };
-        
          default: return state;
     }
 

@@ -1,7 +1,8 @@
-import React from 'react'
+import React,{useEffect} from 'react'
 import { Card, Col, Row } from 'antd';
 
-const DashboardStatistics = () => {
+const DashboardStatistics = (props) => {
+
     return (
         <>
             <div>

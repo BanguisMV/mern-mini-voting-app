@@ -1,19 +1,18 @@
-import React, {useEffect}  from 'react'
+import React  from 'react'
 import { Route, Switch } from 'react-router-dom';
 import Helmet from 'react-helmet'
-
+import { withRouter } from "react-router-dom";
 import Statistics from './DashboardStatistics';
 import SideBar from './DashboardSideBar';
 import PartyLists from './DashboardPartyLists';
 import Voters from './DashboardVoters';
-import Candidates from './DashboardCandidates';
+import Candidates from './admin/candidates/DashboardCandidates';
+
 import { Layout } from 'antd';
 
 
 const { Content  } = Layout;
-const AdminDashboard = () => {
-
-
+const AdminDashboard = (props) => {
     return (
    <Layout>
      <Helmet>
@@ -24,10 +23,10 @@ const AdminDashboard = () => {
           <Content className="site-layout">
                 <div className="site-layout-body" >
                   <Switch>
-                      <Route exact path="/statistics" component={Statistics} /> 
-                      <Route exact path="/partylists" component={PartyLists} />
-                      <Route exact path="/candidates" component={Candidates} />
-                      <Route exact path="/voters" component={Voters} />
+                    <Route exact path={`/`} component={Statistics}/> 
+                    <Route exact path={`/partylists`} component={PartyLists}/>
+                    <Route exact path={`/candidates`} component={Candidates}/>
+                    <Route exact path={`/voters`} component={Voters}/>
                   </Switch>
                 </div>
             </Content>
@@ -36,4 +35,12 @@ const AdminDashboard = () => {
     )
 }
 
-export default AdminDashboard
+export default withRouter(AdminDashboard)
+
+
+// <Switch>
+// <Route path={`/statistics`} component={Statistics} /> 
+// <Route path={`/partylists`} component={PartyLists} />
+// <Route path={`/candidates`} component={Candidates} />
+// <Route path={`/voters`} component={Voters} />
+// </Switch>

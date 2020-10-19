@@ -1,7 +1,7 @@
-import React from 'react'
+import React,{useEffect} from 'react'
 import Helmet from 'react-helmet'
 
-const DashboardVoters = () => {
+const DashboardVoters = (props) => {
     return (
         <div>
              <Helmet>

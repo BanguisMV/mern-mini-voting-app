@@ -1,7 +1,8 @@
-import React from 'react'
+import React,{useEffect} from 'react'
 import Helmet from 'react-helmet'
 
-const DashboardPartyLists = () => {
+const DashboardPartyLists = (props) => {
+
     return (
         <div>
               <Helmet>

@@ -109,7 +109,7 @@
 
 .site-body {
   padding: 1rem;
-  height: 100vh;
+  height: 100%;
 }
 
 @media (max-width: 500px) {
@@ -122,7 +122,7 @@
 .site-layout-body {
   background: #fff;
   padding: 1rem;
-  height: 100%;
+  height: 100vh;
   border-radius: 5px;
 }
 
@@ -130,7 +130,6 @@
   .site-layout-body {
     padding: 1rem;
     margin-top: 0;
-    height: 100vh;
   }
 }
 
@@ -141,6 +140,7 @@
 }
 
 .menu {
+  position: relative;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -172,4 +172,8 @@
   -webkit-box-shadow: 0px 10px 17px -13px rgba(0, 0, 0, 0.22);
           box-shadow: 0px 10px 17px -13px rgba(0, 0, 0, 0.22);
   background-color: #d6e7f0;
+}
+.candidates {
+  height: 100%;
+  padding:1rem;
 }

@@ -16,7 +16,7 @@ router.post('/', async (req, res) => {
     if(!validPassword ) { return res.status(400).json({status:400,message:'INVALID PASSWORD'})}
     
     const token = JWT.sign({_id: user._id, role: user.role}, process.env.NOT_VERY_SECRET_KEY, { expiresIn: '1h' } )
-    res.header('auth-token', token).status(200).json({status:200, token: token})
+    res.status(200).json({status:200, token: token})
 
 })
 

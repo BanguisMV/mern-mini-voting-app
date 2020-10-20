@@ -1,5 +1,5 @@
 import React, { Fragment, useEffect, useState } from 'react'
-import { Tabs,  Row  } from 'antd';
+import { Tabs,  Row,Pagination  } from 'antd';
 import Candidate from './Candidate';
 const { TabPane } = Tabs;
 
@@ -9,22 +9,43 @@ function getWindowDimensions() {
   return width
 }
 
-const CandidateTab = (props) => {
+const Positions = [
+  'All', 
+  'President', 
+  'Vice', 
+  'Treasurer', 
+  'Peace Officer', 
+  'Muse',
+  'Escort'
+];
 
+const paginateGood = (array, page_size, page_number) => {
+  return array.slice(page_number * page_size, page_number * page_size + page_size);
+};
+
+const CandidateTab = ({candidates}) => {
+
+  const [page, setPage] = useState(1)
     function callback(key) { console.log(key) }
     const [mode, setMode] = useState('horizontal')
     const [windowDimension, setWindowDimension] = useState(getWindowDimensions());
   
+   const paginated = paginateGood(candidates, 5, page);
 
     const getByPosition = (position) => {
-      props.candidates.filter(candidate => 
+
+      if(position === 'all') {
+        return paginated.map(candidate => (<Candidate key={candidate._id} data={candidate}/>))
+      } else {
+        return paginated.filter(candidate => 
           candidate.position.toLowerCase() === position)
-          .map(position => ( <Candidate key={position._id} data={position}/> ))
+          .map(position => ( <Candidate key={position._id}  data={position} /> ))
+      }
     }
     useEffect(() => {
         const handleResize = () => setWindowDimension(getWindowDimensions());
         window.addEventListener('resize', handleResize);
-        if(windowDimension > 500) { 
+        if(windowDimension > 600) { 
           setMode('right')
         } else {
           setMode('top') 
@@ -37,36 +58,19 @@ const CandidateTab = (props) => {
             <Tabs 
             className='candidates candidates-tabs'
             tabPosition={mode}
-            defaultActiveKey="1" 
+            defaultActiveKey="0" 
             onChange={callback}>
+                {Positions.map((position, index) => (
+                  <TabPane tab={position} key={index}>
+                    <div className='candidate-row' >
+                        {getByPosition(position.toLowerCase())} 
+                    </div>
+                  </TabPane>
+                ))}
 
-              <TabPane tab="All" key="1">
-                <Row gutter={[16, 16]}>
-                  {props.candidates.map(candidate => (<Candidate key={candidate._id} data={candidate}/> ))}
-                </Row>
-              </TabPane>
-
-
-              <TabPane tab="Presidents" key="2">
-              <Row gutter={[16, 16]}> 
-                {getByPosition('president')} 
-              </Row>
-              </TabPane>
-              <TabPane tab=" Vice" key="3">
-              <Row gutter={[16, 16]}> {getByPosition('vice')} </Row>
-              </TabPane>
-              <TabPane tab="Treasurers" key="4">
-                <Row gutter={[16, 16]}> {getByPosition('treasurer')} </Row>
-              </TabPane>
-              <TabPane tab="Peace Officers" key="5">
-              </TabPane>
-              <TabPane tab="Muse" key="6">
-                  <Row gutter={[16, 16]}> {getByPosition('muse')} </Row>
-              </TabPane>
-              <TabPane tab="Escort" key="7">
-                  <Row gutter={[16, 16]}> {getByPosition('escort')} </Row>
-              </TabPane>
             </Tabs>
+
+            <Pagination simple responsive defaultCurrent={page} total={candidates.length} style={{textAlign:'center', margin:'1rem'}} onChange={setPage}/>
         </Fragment>
     )
 }

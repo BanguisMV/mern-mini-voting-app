@@ -13,7 +13,7 @@ router.get('/', async (req, res) => {
         await Candidate.find().populate('partyList', 'name').
         exec(function (err, found) {
           if (err) return res.json({message:err});
-          res.json(found)
+          res.status(200).json(found)
          });
     } catch (error) {
         res.status(400).json({status:400, message:error})
@@ -31,7 +31,14 @@ router.get('/:id', isCandidateExist, async (req, res) => {
         res.status(400).json({status:400, message:error})
     }
 })
-
+router.delete('/:id', Authorize("admin"), isCandidateExist, async (req, res) => {
+    try {
+        await Candidate.deleteOne({_id:req.params.id})
+        res.json({message:'Successfully Deleted.'})  
+    } catch (err) {
+        res.status(400).send(err)
+    }
+})
 router.post('/', Authorize("admin") , async (req, res) => {
     try {
         const candidate = new Candidate({
@@ -74,7 +81,7 @@ router.patch('/reset', Authorize("admin"), async (req, res) => {
     }
 })
 
-router.patch('/reset/:id',Authorize("admin"),isCandidateExist, async (req, res) => {
+router.patch('/reset/:id', Authorize("admin"),isCandidateExist, async (req, res) => {
 
     try {
         await Candidate.updateOne({_id:req.params.id},{$set : {votes : 0}}) 

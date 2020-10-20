@@ -41,7 +41,7 @@ const DashboardSideBar = (props) => {
     return (
         <Sider 
             className="menu"
-            breakpoint="md" 
+            breakpoint="lg" 
             collapsedWidth="0" 
 
         >

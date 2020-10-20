@@ -1,32 +1,24 @@
 import React,{ useState,useEffect } from 'react'
 import CandidateTab from './Tabs';
 import Helmet from 'react-helmet'
+import {useSelector, useDispatch } from 'react-redux';
+import { getCandidates }from '../../../../redux/actions/candidateActions'
+
 
 const DashboardCandidates = (props) => {
-    const [loading, setLoading] = useState(false)
-  const [data, setData] = useState([])
+
+  const dispatch = useDispatch()
+  const {data, loading} = useSelector(state => state.candidates)
+
     useEffect(() => {
-        fetch('/candidates', {
-          headers: {
-            Authorization: localStorage.getItem('token')
-          }
-        })
-          .then(res => res.json())
-          .then(json => setData(json))
-          .catch(err => console.log(err))
-
-      },[])
-
-console.log(data);
-const position = data.filter(d => d.position == 'Escort')
-console.log(position);
-
+        dispatch(getCandidates())
+    },[])
     return (
         <div className='candidates'>
             <Helmet>
                 <head>Candidates</head>
             </Helmet>
-            <CandidateTab candidates={data} />
+            {loading ? <h1>Loading</h1> :  <CandidateTab  candidates={data}/>}  
         </div>
     )
 }

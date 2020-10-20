@@ -11,7 +11,7 @@ export default async (values, setLoading, openNotification, dispatch,push ) => {
 
          const authData = await auth.json()
 
-         if(auth.status === 404 || auth.status === 400) {
+         if(auth.status === 404 || auth.status === 400 || auth.status !== 200) {
             setLoading(false)
             openNotification(authData.message)
          } else {

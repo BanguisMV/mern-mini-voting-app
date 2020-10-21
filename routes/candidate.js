@@ -46,7 +46,8 @@ router.post('/', Authorize("admin") , async (req, res) => {
             firstName: req.body.firstName,
             lastName: req.body.lastName,
             yearLevel: req.body.yearLevel,
-            partyList: req.body.partyList
+            partyList: '5f8144a5e59cfe2f90bc0025',
+            photo: req.body.photo
         })
         await candidate.save()
     

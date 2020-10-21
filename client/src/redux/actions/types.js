@@ -1,5 +1,8 @@
 export const LOGIN = 'LOGIN';
 export const LOGOUT = 'LOGOUT';
+export const TOKEN_EXPIRED = 'TOKEN_EXPIRED';
+export const TOKEN_NOT_EXPIRED = 'TOKEN_NOT_EXPIRED';
+
 
 
 export const USER_FETCHING = 'USER_FETCHING';

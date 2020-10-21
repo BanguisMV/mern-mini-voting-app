@@ -1,7 +1,7 @@
 import React from 'react'
 import { Route, Redirect } from 'react-router-dom';
 import { useSelector } from 'react-redux'
-
+import LoginPage from '../containers/Login';
 const PrivateRoute = ({component: Component, auth, ...rest }) => {
     const isLoggedIn = useSelector(state => state.auth.isLoggedIn)
     return (

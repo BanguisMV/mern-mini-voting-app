@@ -124,8 +124,8 @@
   background: #fff;
   padding: 1rem;
   border-radius: 5px;
+  overflow-y: scroll;
   height: 100%;
-
 }
 
 @media (max-width: 500px) {
@@ -176,7 +176,9 @@
   background-color: #d6e7f0;
 }
 
-
+.candidates {
+ padding: 1rem;
+}
 .candidate-row {
   display: flex;
   flex-wrap: wrap;
@@ -192,7 +194,6 @@
 
 @media (max-width: 800px) {
   .candidates-cards {
-    /* width: 10rem; */
     margin: 5px;
   }
 }

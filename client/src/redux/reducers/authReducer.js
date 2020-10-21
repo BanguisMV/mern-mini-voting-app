@@ -1,4 +1,4 @@
-import { LOGIN, LOGOUT } from '../actions/types';
+import { LOGIN, LOGOUT, TOKEN_EXPIRED, TOKEN_NOT_EXPIRED } from '../actions/types';
 
 const INITIAL_STATE = {
    isLoggedIn: false,
@@ -15,6 +15,16 @@ const authReducer = (state = INITIAL_STATE, action) => {
              role:action.payload.role,
              id:action.payload.id
            };
+         case TOKEN_EXPIRED:
+            return {
+              ...state, 
+              isLoggedIn: action.payload.isLoggedIn,
+            };
+        case TOKEN_NOT_EXPIRED:
+               return {
+                 ...state, 
+                 isLoggedIn: action.payload.isLoggedIn,
+               };
         case LOGOUT:
               return {
                ...state, 

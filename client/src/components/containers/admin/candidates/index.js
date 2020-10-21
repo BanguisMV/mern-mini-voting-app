@@ -1,7 +1,8 @@
-import React,{ useState,useEffect } from 'react'
+import React,{  useEffect } from 'react'
 import CandidateTab from './Tabs';
 import Helmet from 'react-helmet'
-import {useSelector, useDispatch } from 'react-redux';
+import { Skeleton } from 'antd';
+import { useSelector, useDispatch } from 'react-redux';
 import { getCandidates }from '../../../../redux/actions/candidateActions'
 
 
@@ -11,14 +12,14 @@ const DashboardCandidates = (props) => {
   const {data, loading} = useSelector(state => state.candidates)
 
     useEffect(() => {
-        dispatch(getCandidates())
+            dispatch(getCandidates())
     },[])
     return (
         <div className='candidates'>
             <Helmet>
                 <head>Candidates</head>
             </Helmet>
-            {loading ? <h1>Loading</h1> :  <CandidateTab  candidates={data}/>}  
+            {loading ? <Skeleton round /> :  <CandidateTab  candidates={data}/>}  
         </div>
     )
 }

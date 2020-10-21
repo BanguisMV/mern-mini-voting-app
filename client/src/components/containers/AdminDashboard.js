@@ -6,7 +6,7 @@ import Statistics from './DashboardStatistics';
 import SideBar from './DashboardSideBar';
 import PartyLists from './DashboardPartyLists';
 import Voters from './DashboardVoters';
-import Candidates from './admin/candidates/DashboardCandidates';
+import Candidates from './admin/candidates';
 
 import { Layout } from 'antd';
 

@@ -1,13 +1,12 @@
-import React, { Fragment, useEffect, useState } from 'react'
-import { Tabs,  Row,Pagination  } from 'antd';
+import React, { useState, Fragment } from 'react'
+import { Tabs, Button } from 'antd';
 import Candidate from './Candidate';
+import AddCandidate from './AddCandidate'
+import PostRequest from '../../../utils/PostRequest';
+import { useDispatch } from 'react-redux';
+import { getCandidates }from '../../../../redux/actions/candidateActions'
+
 const { TabPane } = Tabs;
-
-
-function getWindowDimensions() {
-  const { innerWidth: width } = window;
-  return width
-}
 
 const Positions = [
   'All', 
@@ -19,47 +18,37 @@ const Positions = [
   'Escort'
 ];
 
-const paginateGood = (array, page_size, page_number) => {
-  return array.slice(page_number * page_size, page_number * page_size + page_size);
-};
 
 const CandidateTab = ({candidates}) => {
-
-  const [page, setPage] = useState(1)
-    function callback(key) { console.log(key) }
-    const [mode, setMode] = useState('horizontal')
-    const [windowDimension, setWindowDimension] = useState(getWindowDimensions());
-  
-   const paginated = paginateGood(candidates, 5, page);
-
+    const dispatch = useDispatch()
+    const [visible, setVisible] = useState(false)
+    
     const getByPosition = (position) => {
-
-      if(position === 'all') {
-        return paginated.map(candidate => (<Candidate key={candidate._id} data={candidate}/>))
+    if(position === 'all') {
+        return candidates.map(candidate => (<Candidate key={candidate._id} data={candidate} />))
       } else {
-        return paginated.filter(candidate => 
+        return candidates.filter(candidate => 
           candidate.position.toLowerCase() === position)
           .map(position => ( <Candidate key={position._id}  data={position} /> ))
       }
     }
-    useEffect(() => {
-        const handleResize = () => setWindowDimension(getWindowDimensions());
-        window.addEventListener('resize', handleResize);
-        if(windowDimension > 600) { 
-          setMode('right')
-        } else {
-          setMode('top') 
-        }
-        return () => window.removeEventListener('resize', handleResize);
-  }, [windowDimension]);
+    
+    const onCreate = (values) => {
+      PostRequest(values, 'candidates')
+      dispatch(getCandidates())
+
+      setVisible(false)
+    };
+
+    const showModal = () => setVisible(true);
 
     return (
-        <Fragment>
+      <Fragment>
             <Tabs 
+            size='large'
             className='candidates candidates-tabs'
-            tabPosition={mode}
             defaultActiveKey="0" 
-            onChange={callback}>
+            tabBarExtraContent={<Button onClick={showModal}>Add Candidate</Button> }>
                 {Positions.map((position, index) => (
                   <TabPane tab={position} key={index}>
                     <div className='candidate-row' >
@@ -67,10 +56,12 @@ const CandidateTab = ({candidates}) => {
                     </div>
                   </TabPane>
                 ))}
-
             </Tabs>
 
-            <Pagination simple responsive defaultCurrent={page} total={candidates.length} style={{textAlign:'center', margin:'1rem'}} onChange={setPage}/>
+          <AddCandidate 
+          visible={visible} 
+          onCreate={onCreate} 
+          onCancel={() => { setVisible(false) }}/>
         </Fragment>
     )
 }

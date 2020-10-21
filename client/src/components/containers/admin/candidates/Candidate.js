@@ -38,7 +38,8 @@ console.log(e.target);
                     cover={
                     <img
                         alt={data.firstName}
-                        src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png"
+                        src={data.photo}
+                        style={{height: '12rem'}}
                     /> }
                     actions={[
                         <EditOutlined key="edit" style={{ color: 'blue'}}/>,

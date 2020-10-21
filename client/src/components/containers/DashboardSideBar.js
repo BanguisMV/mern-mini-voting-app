@@ -28,7 +28,7 @@ const DashboardSideBar = (props) => {
         history.push("/auth")
       };
 
-      if(props.location.pathname === '/') {
+      if(props.location.pathname === '/' || props.location.pathname === '/auth') {
           activeKey = '1'
       } else if(props.location.pathname === '/partylists' ) {
           activeKey = '2'

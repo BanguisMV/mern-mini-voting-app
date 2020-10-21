@@ -22,12 +22,12 @@ const candidatesSchema = new Schema({
     yearLevel: {
         type: Number,
     },
-    images: {
-        type: String,
-    },
     partyList: {
         type:Schema.Types.ObjectId,
         ref:'Partylist',
+    },
+    photo: {
+        type: String,
     },
     votes: {
         type: Number,
